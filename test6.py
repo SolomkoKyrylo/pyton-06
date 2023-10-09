@@ -33,12 +33,13 @@ def sort_folder(path):
     for element in path.glob("**/*"):
         if element.is_file():
             category = get_categories(element)
-            move_file(element, category, path)
+            if category != "unknown":
+                move_file(element, category, path)
         elif element.is_dir() and element.name not in CATEGORIES:
             sort_folder(element)
         elif element.is_dir() and element.name in CATEGORIES:
-            
             element.rmdir()
+
 
 def main():
     try:
